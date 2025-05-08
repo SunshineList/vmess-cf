@@ -28,14 +28,14 @@
 **使用步骤：**
 
 1.  **输入链接**：将您需要转换的 VMess 或 VLESS 链接粘贴到输入框中。
-    ![输入区域截图](![image](https://github.com/user-attachments/assets/380d3fd2-b6b9-446a-91c6-f0fdea82582a)
-) 2.  **点击转换**：点击“转换链接”按钮。
+    ![输入区域截图](https://github.com/user-attachments/assets/380d3fd2-b6b9-446a-91c6-f0fdea82582a)
+ 2.  **点击转换**：点击“转换链接”按钮。
 3.  **查看结果**：
     * **解析后的配置**：会显示一个中间的 JSON 对象，这是脚本从输入链接中解析和整合出的详细配置信息。您可以复制此 JSON。
-        ![解析结果截图](![image](https://github.com/user-attachments/assets/171b7bf4-477f-433b-9552-acdcab1aa3ec)
-) * **转换后的链接**：这是最终生成的、包含所有配置的 Base64 JSON 格式的标准链接。
-        ![转换后链接截图](![image](https://github.com/user-attachments/assets/753caaed-a57c-4067-af69-792b20199f86)
-) 4.  **操作链接**：
+        ![解析结果截图](https://github.com/user-attachments/assets/171b7bf4-477f-433b-9552-acdcab1aa3ec)
+ * **转换后的链接**：这是最终生成的、包含所有配置的 Base64 JSON 格式的标准链接。
+        ![转换后链接截图](https://github.com/user-attachments/assets/753caaed-a57c-4067-af69-792b20199f86)
+ 4.  **操作链接**：
     * **复制链接**：点击转换后链接旁边的“复制链接”按钮，或下方的“复制链接 (V2RayN Win/Mac 及桌面)”按钮。
     * **一键导入 (移动端)**：
         * 点击 "导入 Shadowrocket (iOS)"
