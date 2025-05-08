@@ -35,12 +35,13 @@
         ![解析结果截图](https://github.com/user-attachments/assets/171b7bf4-477f-433b-9552-acdcab1aa3ec)
  * **转换后的链接**：这是最终生成的、包含所有配置的 Base64 JSON 格式的标准链接。
         ![转换后链接截图](https://github.com/user-attachments/assets/753caaed-a57c-4067-af69-792b20199f86)
- 4.  **操作链接**：
+ 4. **操作链接**：
     * **复制链接**：点击转换后链接旁边的“复制链接”按钮，或下方的“复制链接 (V2RayN Win/Mac 及桌面)”按钮。
     * **一键导入 (移动端)**：
         * 点击 "导入 Shadowrocket (iOS)"
         * 点击 "导入 V2RayNG (Android)"
         * 点击 "导入 NekoBox (Android)"
+
         这些操作会尝试调用相应客户端的 URL Scheme 进行导入。**前提是您的设备上已安装对应的客户端，并且客户端正确处理了该 URL Scheme。** 浏览器可能会弹出提示要求确认。如果跳转失败，请使用复制链接并手动导入。
     * **桌面客户端 (如 V2RayN)**：请点击“复制链接 (V2RayN Win/Mac 及桌面)”按钮，然后在您的 V2RayN 客户端中选择“从剪贴板导入”或类似选项。Mac 用户请选用支持此类链接的兼容客户端。
 
