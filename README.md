@@ -67,7 +67,7 @@
 4.  **编辑并粘贴代码**：
     * Worker 创建并部署（初始会有一个默认的 "Hello World" 脚本）后，点击 "Edit code" 或 "Configure Worker" -> "Quick edit"。
     * Cloudflare 会打开一个在线编辑器。删除编辑器中现有的所有示例代码。
-    * 将您在步骤1中复制的 `index.js` 文件的**全部内容**粘贴到在线编辑器中。
+    * 将您在步骤1中复制的 `_worker.js` 文件的**全部内容**粘贴到在线编辑器中。
 
 5.  **保存并部署**：
     * 点击编辑器界面上方的 "Deploy" (或 "Save and Deploy") 按钮。
@@ -96,5 +96,3 @@
 如果您发现任何问题或有改进建议，欢迎通过 GitHub Issues 提出。如果您想贡献代码，请 Fork 本仓库并提交 Pull Request。
 
 ---
-
-希望这个 Markdown 文件能帮助您！您可以根据需要替换占位符图片链接，并添加更多细节。
