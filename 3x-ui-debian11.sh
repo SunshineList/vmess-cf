@@ -196,5 +196,39 @@ else
 fi
 
 echo "=================================="
+echo "面板配置提示结束"
+echo "=================================="
+
+# 询问是否安装哪吒探针 Agent
+echo "" # 换行
+echo "=================================="
+echo "哪吒探针 Agent 安装 (可选)"
+echo "=================================="
+read -p "是否安装哪吒探针 Agent? (y/n): " install_nezha
+install_nezha=${install_nezha:-n} # 默认选择否
+
+if [[ "$install_nezha" =~ ^[Yy]$ ]]; then
+    echo "好的，开始安装哪吒探针 Agent..."
+    echo "正在下载哪吒安装脚本..."
+    # 下载、添加执行权限并运行哪吒安装脚本
+    curl -L https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh -o nezha.sh && \
+    chmod +x nezha.sh && \
+    echo "正在执行哪吒安装脚本..." && \
+    echo "请按照哪吒安装脚本的提示进行操作（通常需要输入面板地址、端口、密钥等信息）。" && \
+    ./nezha.sh
+    # 检查哪吒安装脚本的退出状态
+    if [ $? -eq 0 ]; then
+        echo "哪吒安装脚本已执行完毕。请根据其输出检查是否安装成功。"
+    else
+        echo "警告：执行哪吒安装命令失败。请检查网络或手动运行以下命令安装："
+        echo "curl -L https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh -o nezha.sh && chmod +x nezha.sh && ./nezha.sh"
+    fi
+    # 清理哪吒安装脚本文件
+    rm -f nezha.sh
+else
+    echo "跳过哪吒探针 Agent 安装。"
+fi
+
+echo "=================================="
 echo "脚本执行完毕。"
 echo "=================================="
