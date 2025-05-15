@@ -158,6 +158,43 @@ systemctl enable x-ui || { echo "错误: systemctl enable x-ui 失败。退出�
 systemctl restart x-ui || { echo "错误: systemctl restart x-ui 失败。退出脚本。"; exit 1; }
 
 echo "=================================="
-echo "x-ui 安装完成。服务已重启。"
-echo "您现在可以通过浏览器访问面板。请根据安装后的提示或日志查找默认端口和用户名密码。"
+echo "x-ui 安装完成。服务已启动并运行。"
+echo "=================================="
+
+# 引导用户进行面板设置重置
+echo "重要安全提示:"
+echo "x-ui 面板已成功安装。为了您的安全，强烈建议您立即修改面板的默认端口、用户名、密码和 Web 路径。"
+echo ""
+
+# 提示用户是否立即配置
+read -p "是否现在启动 x-ui 管理菜单进行配置? (y/n): " config_now
+config_now=${config_now:-y} # 默认选择是
+
+if [[ "$config_now" =~ ^[Yy]$ ]]; then
+    echo "好的，脚本将在短暂暂停后启动 x-ui 管理菜单。"
+    echo "请根据菜单提示，选择并执行以下操作:"
+    echo "  9. 修改面板端口"
+    echo "  6. 重置用户名、密码和 Secret Token"
+    echo "  7. 重置 Web 根路径"
+    echo "完成配置后，在菜单中选择 0 退出。"
+    echo ""
+    echo "按任意键继续，或等待 10 秒自动继续..."
+    read -t 10 -n 1 -s || true # 暂停10秒或等待按键
+    echo "" # 换行
+
+    echo "正在启动 x-ui 管理菜单..."
+    # 执行 x-ui 命令，让用户进行交互
+    sudo x-ui
+
+    echo "x-ui 管理菜单已退出。"
+    echo "请确保您刚才已成功修改了面板的端口、用户名、密码和 Web 路径。"
+    echo "请记住您修改后的设置。"
+
+else
+    echo "好的，您可以稍后手动运行 'sudo x-ui' 命令来配置面板设置。"
+    echo "请记住默认设置存在安全风险，请尽快手动修改。"
+fi
+
+echo "=================================="
+echo "脚本执行完毕。"
 echo "=================================="
