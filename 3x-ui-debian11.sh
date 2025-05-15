@@ -10,6 +10,68 @@ echo "=================================="
 echo "x-ui 安装脚本开始执行"
 echo "=================================="
 
+# 定义必需的命令列表
+required_commands=("wget" "tar" "curl" "systemctl")
+missing_commands=()
+
+# 检查必需的命令是否存在
+echo "正在检查必需的命令 (${required_commands[*]}) 是否存在..."
+for cmd in "${required_commands[@]}"; do
+    if ! command -v "$cmd" &>/dev/null; then
+        echo "警告: 命令 '$cmd' 未找到。"
+        missing_commands+=("$cmd")
+    fi
+done
+
+# 如果有缺少的命令，尝试安装
+if [ ${#missing_commands[@]} -gt 0 ]; then
+    echo "检测到缺少的命令：${missing_commands[*]}。正在尝试安装..."
+
+    pkg_manager=""
+    # 检测包管理器
+    if command -v apt &>/dev/null; then
+        pkg_manager="apt"
+    elif command -v dnf &>/dev/null; then
+        pkg_manager="dnf"
+    elif command -v yum &>/dev/null; then
+        pkg_manager="yum"
+    fi
+
+    if [ -z "$pkg_manager" ]; then
+        echo "错误: 未找到支持的软件包管理器 (apt, dnf, yum)。无法自动安装依赖。请手动安装以下命令后重试: ${missing_commands[*]}。"
+        exit 1
+    fi
+
+    echo "使用 '$pkg_manager' 包管理器进行安装。"
+
+    # 执行安装
+    if [ "$pkg_manager" == "apt" ]; then
+        echo "正在更新软件包列表..."
+        apt update || { echo "错误: apt update 失败。请检查您的软件包源。退出脚本。"; exit 1; }
+        echo "正在安装缺少的命令: ${missing_commands[*]}..."
+        apt install -y "${missing_commands[@]}" || { echo "错误: 使用 apt 安装依赖失败。退出脚本。"; exit 1; }
+    elif [ "$pkg_manager" == "dnf" ] || [ "$pkg_manager" == "yum" ]; then
+         echo "正在安装缺少的命令: ${missing_commands[*]}..."
+        "$pkg_manager" install -y "${missing_commands[@]}" || { echo "错误: 使用 $pkg_manager 安装依赖失败。退出脚本。"; exit 1; }
+    fi
+
+    # 再次检查关键命令是否安装成功 (wget, tar, systemctl)
+    echo "正在验证关键命令是否安装成功..."
+    critical_commands=("wget" "tar" "systemctl")
+    for cmd in "${critical_commands[@]}"; do
+        if ! command -v "$cmd" &>/dev/null; then
+             echo "错误: 关键命令 '$cmd' 安装失败或仍然不可用。请手动安装后重试。退出脚本。"
+             exit 1
+        fi
+    done
+    echo "所有必需的关键命令已可用。"
+
+else
+    echo "所有必需的命令都已找到。"
+fi
+
+echo "----------------------------------"
+
 # 尝试关闭防火墙（ufw/firewalld），以便服务可以正常运行
 echo "正在尝试关闭防火墙（ufw/firewalld），以确保服务端口开放..."
 
@@ -44,7 +106,7 @@ if command -v systemctl &>/dev/null; then
          fi
     else
          # Check if the service file exists even if not active
-         if systemctl list-unit-files --no-legend | grep firewalld.service &>/dev/null; then
+         if systemctl list-unit-files --no-legend 2>/dev/null | grep firewalld.service &>/dev/null; then
              echo "检测到 firewalld 服务但未处于活动状态。"
          else
              echo "系统中未安装 firewalld 服务，跳过 firewalld 处理。"
