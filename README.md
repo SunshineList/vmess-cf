@@ -95,4 +95,6 @@
 
 如果您发现任何问题或有改进建议，欢迎通过 GitHub Issues 提出。如果您想贡献代码，请 Fork 本仓库并提交 Pull Request。
 
+###  致谢
+* snippets.js项目基于 [eooce/CF-Workers-and-Snip-VLESS](https://github.com/eooce/CF-Workers-and-Snip-VLESS) 修改，感谢原作者的贡献。
 ---
